@@ -1,4 +1,10 @@
 #include "Game.hpp"
+#include "GameObject.hpp"
+#include "Map.hpp"
+
+SDL_Renderer* Game::renderer = nullptr;
+GameObject* player = nullptr;
+Map* map = nullptr;
 
 Game::Game() {
 
@@ -10,6 +16,7 @@ Game::~Game() {
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
 	int flags = 0;
+
 	if (fullscreen) {
 		flags = SDL_WINDOW_FULLSCREEN;
 	}
@@ -33,6 +40,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}else {
 		isRunning = false;
 	}
+	map = new Map();
+	player = new GameObject("assets/player.png", 0, 0);
 }
 
 void Game::handleEvents() {
@@ -50,20 +59,20 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	cnt++;
-	std::cout << cnt << std::endl;
+	player->Update();
 }
 
 void Game::render() {
 	SDL_RenderClear(renderer);
+	map->DrawMap();
+	player->Render();
+	SDL_RenderPresent(renderer);
 }
 
 void Game::clean() {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
-
-	std::cout << "játék kitisztítva..." << std::endl;
 }
 
 bool Game::running() {

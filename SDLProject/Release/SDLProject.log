@@ -1,8 +1,7 @@
-﻿  Game.cpp
-  main.cpp
+﻿  main.cpp
   Generating code
-  9 of 19 functions (47.4%) were compiled, the rest were copied from previous compilation.
+  1 of 19 functions ( 5.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   SDLProject.vcxproj -> C:\Users\vrgad\source\repos\SDLProject\Release\SDLProject.exe
