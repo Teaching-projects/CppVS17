@@ -32,10 +32,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		if (renderer) {
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 			std::cout << "renderer kesz..." << std::endl;
-		
 		}
 
 		isRunning = true;
+		gameState = GameState::Begin;
+		std::cout << gameState << std::endl;
 	}else {
 		isRunning = false;
 	}
@@ -45,6 +46,13 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 void Game::handleEvents() {
 	SDL_Event event;
 	SDL_PollEvent(&event);
+
+	if (event.type == SDL_MOUSEBUTTONDOWN) {
+		if (event.button.button == SDL_BUTTON_LEFT) {
+			gameState = GameState::Play;
+		}
+		
+	}
 
 	switch (event.type)
 	{
@@ -61,7 +69,18 @@ void Game::update() {
 
 void Game::render() {
 	SDL_RenderClear(renderer);
-	map->DrawMap();
+	
+	switch (gameState) {
+	case GameState::Begin: 
+		break;
+	case GameState::Play:
+		map->DrawMap();
+		break;
+	case GameState::End:
+		break;
+	default:
+		break;
+	}
 	SDL_RenderPresent(renderer);
 }
 

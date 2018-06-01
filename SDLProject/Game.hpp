@@ -4,6 +4,10 @@
 #include "SDL_image.h"
 #include <iostream>
 
+enum GameState {
+	Begin, Play, End
+};
+
 class Game {
 public:
 
@@ -20,6 +24,7 @@ public:
 	static SDL_Renderer* renderer;
 
 private:
+	GameState gameState;
 	int cnt;
 	bool isRunning;
 	SDL_Window* window;

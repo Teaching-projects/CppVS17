@@ -97,7 +97,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Ádám\Documents\Torpedo\SDL2_image-2.0.1\include;C:\Users\Ádám\Documents\Torpedo\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Ádám\Documents\Torpedo\SDL2_ttf-2.0.14\include;C:\Users\Ádám\Documents\Torpedo\SDL2_image-2.0.1\include;C:\Users\Ádám\Documents\Torpedo\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\Users\Ádám\Documents\Torpedo\SDL2_image-2.0.1\lib\x64;C:\Users\Ádám\Documents\Torpedo\SDL2-2.0.8\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -130,7 +130,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Ádám\Documents\Torpedo\SDL2_image-2.0.1\include;C:\Users\Ádám\Documents\Torpedo\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Ádám\Documents\Torpedo\SDL2_ttf-2.0.14\include;C:\Users\Ádám\Documents\Torpedo\SDL2_image-2.0.1\include;C:\Users\Ádám\Documents\Torpedo\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
