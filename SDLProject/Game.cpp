@@ -3,7 +3,6 @@
 #include "Map.hpp"
 
 SDL_Renderer* Game::renderer = nullptr;
-GameObject* player = nullptr;
 Map* map = nullptr;
 
 Game::Game() {
@@ -41,7 +40,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 	map = new Map();
-	player = new GameObject("assets/player.png", 0, 0);
 }
 
 void Game::handleEvents() {
@@ -59,13 +57,11 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	player->Update();
 }
 
 void Game::render() {
 	SDL_RenderClear(renderer);
 	map->DrawMap();
-	player->Render();
 	SDL_RenderPresent(renderer);
 }
 

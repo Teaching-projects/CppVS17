@@ -3,16 +3,12 @@
 #include <iostream>
 
 Map::Map() {
-	water = TextureManager::LoadTexture("assets/water.png");
+	water = TextureManager::LoadTexture("assets/water_flat.png");
 	ship = TextureManager::LoadTexture("assets/ship.png");
 
 	for (int x = 0; x < 20; x++) {
 		for (int y = 0; y < 20; y++) {
 			map[x][y] = 0;
-
-			if (x == 1 && y == 2) {
-				map[x][y] = 1;
-			}
 		}
 	}
 
@@ -24,14 +20,6 @@ Map::Map() {
 
 Map::~Map() {
 
-}
-
-void Map::LoadMap(int arr[20][25]) {
-	for (int x = 0; x < 20; x++) {
-		for (int y = 0; y < 20; y++) {
-			map[x][y] = arr[x][y];
-		}
-	}
 }
 
 void Map::DrawMap() {
