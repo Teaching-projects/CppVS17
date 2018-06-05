@@ -3,7 +3,8 @@
 #include "Map.hpp"
 
 SDL_Renderer* Game::renderer = nullptr;
-Map* map = nullptr;
+Map* playerMap = nullptr;
+Map* enemyMap = nullptr;
 
 Game::Game() {
 
@@ -30,7 +31,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		renderer = SDL_CreateRenderer(window, -1, 0);
 
 		if (renderer) {
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(renderer, 52, 52, 52, 255);
 			std::cout << "renderer kesz..." << std::endl;
 		}
 
@@ -40,18 +41,34 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}else {
 		isRunning = false;
 	}
-	map = new Map();
+	playerMap = new Map(0,160);
+	enemyMap = new Map(420, 160);
 }
 
 void Game::handleEvents() {
 	SDL_Event event;
 	SDL_PollEvent(&event);
 
-	if (event.type == SDL_MOUSEBUTTONDOWN) {
-		if (event.button.button == SDL_BUTTON_LEFT) {
-			gameState = GameState::Play;
-		}
-		
+
+	switch (gameState) {
+		case GameState::Begin:
+			if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+				gameState = GameState::Play;
+			}
+			break;
+		case GameState::Play:
+			if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+				gameState = GameState::End;
+			}
+			break;
+		case GameState::End:
+			if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+				gameState = GameState::Begin;
+			}
+			break;
+		default:
+
+			break;
 	}
 
 	switch (event.type)
@@ -65,16 +82,18 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
+	
 }
 
 void Game::render() {
 	SDL_RenderClear(renderer);
 	
 	switch (gameState) {
-	case GameState::Begin: 
+	case GameState::Begin:
 		break;
 	case GameState::Play:
-		map->DrawMap();
+		playerMap->DrawMap();
+		enemyMap->DrawMap();
 		break;
 	case GameState::End:
 		break;

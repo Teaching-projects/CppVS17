@@ -12,7 +12,7 @@ int main(int argc, char *args[]) {
 	int frameTime = 0;
 
 	game = new Game();
-	game->init("Torpedo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 640, false);
+	game->init("Torpedo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 740, 480, false);
 
 	while (game->running()) {
 

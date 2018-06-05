@@ -5,19 +5,21 @@
 class Map {
 
 public:
-	Map();
+	Map(int _baseoffsetX, int _baseoffsetY);
 	~Map();
 
-	void LoadMap(int arr[20][25]);
 	void DrawMap();
-
+	void GetCoord(int mousePosX, int mousePosY, int& x, int& y);
 private:
+	int baseOffsetX;
+	int baseOffsetY;
+	int size;
 	SDL_Rect srcR, destR;
 
 	SDL_Texture* water;
 	SDL_Texture* ship;
 
-	int map[20][25];
+	int map[10][10];
 
 };
 

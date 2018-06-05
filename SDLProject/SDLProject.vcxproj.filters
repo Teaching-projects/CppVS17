@@ -44,5 +44,8 @@
     <ClInclude Include="Map.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Data.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

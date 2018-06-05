@@ -2,12 +2,13 @@
 #include "TextureManager.hpp"
 #include <iostream>
 
-Map::Map() {
+Map::Map(int _baseOffsetX, int _baseOffsetY) : baseOffsetX(_baseOffsetX), baseOffsetY(_baseOffsetY) {
 	water = TextureManager::LoadTexture("assets/water_flat.png");
 	ship = TextureManager::LoadTexture("assets/ship.png");
 
-	for (int x = 0; x < 20; x++) {
-		for (int y = 0; y < 20; y++) {
+
+	for (int x = 0; x < 10; x++) {
+		for (int y = 0; y < 10; y++) {
 			map[x][y] = 0;
 		}
 	}
@@ -23,16 +24,14 @@ Map::~Map() {
 }
 
 void Map::DrawMap() {
-	for (int x = 0; x < 20; x++) {
-		for (int y = 0; y < 20; y++) {
+	for (int x = 0; x < 10; x++) {
+		for (int y = 0; y < 10; y++) {
 
-			destR.x = x * 32;
-			destR.y = y * 32;
+			destR.x = (x * 32) + baseOffsetX;
+			destR.y = (y * 32) + baseOffsetY;
 
 			switch (map[x][y]) {
 			case 0:
-				destR.x = x * 32;
-				destR.y = y * 32;
 				TextureManager::Draw(water, srcR, destR);
 				break;
 			case 1:

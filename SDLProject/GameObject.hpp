@@ -11,8 +11,9 @@ public:
 
 	void Update();
 	void Render();
-private:
 	int xpos, ypos;
+private:
+	
 
 	SDL_Texture* objTexture;
 	SDL_Rect srcRect, destRect;
