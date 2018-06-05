@@ -3,8 +3,13 @@
 #include "Map.hpp"
 
 SDL_Renderer* Game::renderer = nullptr;
+TTF_Font* Game::font = nullptr;
+SDL_Color Color = { 35, 255, 0 };
+
 Map* playerMap = nullptr;
 Map* enemyMap = nullptr;
+int mouseX, mouseY;
+
 
 Game::Game() {
 
@@ -24,30 +29,30 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 
-		if (window) {
-			std::cout << "ablak kesz..." << std::endl;
-		}
-
 		renderer = SDL_CreateRenderer(window, -1, 0);
 
 		if (renderer) {
-			SDL_SetRenderDrawColor(renderer, 52, 52, 52, 255);
-			std::cout << "renderer kesz..." << std::endl;
+			SDL_SetRenderDrawColor(renderer, 32, 32, 32, 255);
 		}
+
+		TTF_Init();
+		font = TTF_OpenFont("Ubuntu.ttf", 36);
 
 		isRunning = true;
 		gameState = GameState::Begin;
-		std::cout << gameState << std::endl;
+		
 	}else {
 		isRunning = false;
 	}
-	playerMap = new Map(0,160);
-	enemyMap = new Map(420, 160);
+	playerMap = new Map(0,0);
+	enemyMap = new Map(448, 0);
 }
 
 void Game::handleEvents() {
 	SDL_Event event;
 	SDL_PollEvent(&event);
+
+	
 
 
 	switch (gameState) {
@@ -90,10 +95,12 @@ void Game::render() {
 	
 	switch (gameState) {
 	case GameState::Begin:
+		TextureManager::DrawText(342, 20, "Torpedo", Color);
 		break;
 	case GameState::Play:
-		playerMap->DrawMap();
-		enemyMap->DrawMap();
+		SDL_GetMouseState(&mouseX, &mouseY);
+		playerMap->DrawMap(mouseX, mouseY);
+		enemyMap->DrawMap(mouseX, mouseY);
 		break;
 	case GameState::End:
 		break;

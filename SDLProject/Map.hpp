@@ -8,7 +8,7 @@ public:
 	Map(int _baseoffsetX, int _baseoffsetY);
 	~Map();
 
-	void DrawMap();
+	void DrawMap(int x, int y);
 	void GetCoord(int mousePosX, int mousePosY, int& x, int& y);
 private:
 	int baseOffsetX;
@@ -18,6 +18,7 @@ private:
 
 	SDL_Texture* water;
 	SDL_Texture* ship;
+	SDL_Texture* select;
 
 	int map[10][10];
 

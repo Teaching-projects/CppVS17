@@ -2,6 +2,7 @@
 #define GAME_HPP
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_ttf.h"
 #include <iostream>
 
 enum GameState {
@@ -22,6 +23,7 @@ public:
 	bool running();
 
 	static SDL_Renderer* renderer;
+	static TTF_Font* font;
 
 private:
 	GameState gameState;

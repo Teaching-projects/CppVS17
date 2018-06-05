@@ -47,5 +47,8 @@
     <ClInclude Include="Data.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Ships.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

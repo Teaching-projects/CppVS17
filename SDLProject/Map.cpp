@@ -5,6 +5,7 @@
 Map::Map(int _baseOffsetX, int _baseOffsetY) : baseOffsetX(_baseOffsetX), baseOffsetY(_baseOffsetY) {
 	water = TextureManager::LoadTexture("assets/water_flat.png");
 	ship = TextureManager::LoadTexture("assets/ship.png");
+	select = TextureManager::LoadTexture("assets/cursor.png");
 
 
 	for (int x = 0; x < 10; x++) {
@@ -13,8 +14,7 @@ Map::Map(int _baseOffsetX, int _baseOffsetY) : baseOffsetX(_baseOffsetX), baseOf
 		}
 	}
 
-	srcR.x = srcR.y = 0;
-	destR.x = destR.y = 0;
+
 	srcR.w = destR.w = 32;
 	srcR.h = destR.h = 32;
 }
@@ -23,7 +23,7 @@ Map::~Map() {
 
 }
 
-void Map::DrawMap() {
+void Map::DrawMap(int mX, int mY) {
 	for (int x = 0; x < 10; x++) {
 		for (int y = 0; y < 10; y++) {
 
@@ -43,5 +43,12 @@ void Map::DrawMap() {
 				break;
 			}
 		}
+	}
+
+	if (mX > (baseOffsetX) && mX < (baseOffsetX + 320) && mY > (baseOffsetY) && mY < (baseOffsetY + 320)) {
+		destR.x = ((mX / 32) * 32);
+		destR.y = ((mY / 32) * 32);
+		std::cout<< mX << " , " << mY << " -> " << destR.x << " , " << destR.y << std::endl;
+		TextureManager::Draw(select, srcR, destR);
 	}
 }
