@@ -28,4 +28,5 @@ void TextureManager::DrawText(int x, int y, const char* text, SDL_Color color) {
 	Message_rect.h = 28;
 
 	SDL_RenderCopy(Game::renderer, textureText, NULL, &Message_rect);
+	SDL_DestroyTexture(textureText);
 }

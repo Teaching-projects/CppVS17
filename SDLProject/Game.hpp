@@ -6,7 +6,7 @@
 #include <iostream>
 
 enum GameState {
-	Begin, Play, End
+	Begin, Prep, Play, End
 };
 
 class Game {

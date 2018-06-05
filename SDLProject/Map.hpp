@@ -9,7 +9,8 @@ public:
 	~Map();
 
 	void DrawMap(int x, int y);
-	void GetCoord(int mousePosX, int mousePosY, int& x, int& y);
+	bool SetField(int startX, int startY, int endX, int endY, int length);
+	bool ValidCoord(int x, int y);
 private:
 	int baseOffsetX;
 	int baseOffsetY;
