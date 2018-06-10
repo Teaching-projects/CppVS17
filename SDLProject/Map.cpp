@@ -34,18 +34,23 @@ void Map::Load(int placement[10][10]) {
 }
 
 bool Map::HasBeenChecked(Vector2D pos) {
-	return !(map[pos.x][pos.y] == 0 || map[pos.x][pos.y] == 2);
+	return !(map[pos.x][pos.y] == 0 || map[pos.x][pos.y] == 2 || map[pos.x][pos.y] == 1);
 }
 
-void Map::UpdateTile(Vector2D pos) {
+int Map::UpdateTile(Vector2D pos) {
 	if (map[pos.x][pos.y] == 0) {
 		map[pos.x][pos.y] = 4;
-		std::cout << "melle" << std::endl;
+		return 0;
 	}
 	else if (map[pos.x][pos.y] == 2) {
 		map[pos.x][pos.y] = 3;
-		std::cout << "talalt" << std::endl;
+		return -1;
 	}
+	else if (map[pos.x][pos.y] == 1) {
+		map[pos.x][pos.y] = 3;
+		return -1;
+	}
+	return 0;
 }
 
 void Map::ScreenToMapCoord(Vector2D screenPos, Vector2D& mapPos) {

@@ -16,7 +16,7 @@ public:
 	int ValidPlacement(Vector2D start, Vector2D end);
 	void PlaceShips(Vector2D start, Vector2D end);
 	bool HasBeenChecked(Vector2D pos);
-	void UpdateTile(Vector2D pos);
+	int UpdateTile(Vector2D pos);
 	void ScreenToMapCoord(Vector2D screenPos, Vector2D& mapPos);
 private:
 	int baseOffsetX;

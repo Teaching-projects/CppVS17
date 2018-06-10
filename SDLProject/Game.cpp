@@ -4,7 +4,7 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 TTF_Font* Game::font = nullptr;
-SDL_Color Color = { 144, 164, 174 };
+SDL_Color Color = { 255, 255, 255 };
 
 Map* playerMap = nullptr;
 Map* enemyMap = nullptr;
@@ -13,13 +13,16 @@ Vector2D mousePos;
 
 bool win = false;
 Ship ships[5];
-int shipPrepCount = 0;
-int shipStartEndCounter = 0;
+int shipPrepCount = 0,
+	shipStartEndCounter = 0;
 int shipPlacement[4];
-int prepErrorCode = 0;
-int playerCounter = 0;
+int prepErrorCode = 0,
+	playerCounter = 0,
+	playerShipCount = 17,
+	enemyShipCount = 17;
+std::string s;
+const char* pchar;
 
-Data data{ 0,0 };
 Vector2D inputVectorStart{ -1, -1 };
 Vector2D inputVectorEnd{ -1, -1 };
 
@@ -154,20 +157,30 @@ void Game::handleEvents() {
 					enemyMap->ScreenToMapCoord(inputVectorStart, inputVectorStart);
 					std::cout << inputVectorStart.x << "  " << inputVectorStart.y << std::endl;
 					if (!enemyMap->HasBeenChecked(inputVectorStart)) {
-						
-						enemyMap->UpdateTile(inputVectorStart);
-						
+						enemyShipCount += enemyMap->UpdateTile(inputVectorStart);	
 						playerCounter++;
 					}
-
-					
 				}
 			}
 			else {
+				Vector2D guess;
+				std::cout << "gep jon" << std::endl;
+				do {
+					guess.x = rand() % 10;
+					guess.y = rand() % 10;
+				} while (playerMap->HasBeenChecked(guess));
+				playerShipCount += playerMap->UpdateTile(guess);
 				playerCounter++;
 			}
 
-			//std::cout << playerCounter << std::endl;
+			if (enemyShipCount == 0) {
+				win = true;
+				gameState = GameState::End;
+			}
+			if (playerShipCount == 0) {
+				win = false;
+				gameState = GameState::End;
+			}
 			
 			break;
 		case GameState::End:
@@ -229,8 +242,19 @@ void Game::render() {
 		
 		break;
 	case GameState::Play:
+		s = std::string("17/") + std::to_string(playerShipCount);
+		pchar = s.c_str();
+		TextureManager::DrawText(340, 10, "Játékos", Color);
+		TextureManager::DrawText(350, 40, pchar, Color);
+		
+		s = std::string("17/") + std::to_string(enemyShipCount);
+		pchar = s.c_str();
+		TextureManager::DrawText(360, 250, "Gép", Color);
+		TextureManager::DrawText(350, 280, pchar, Color);
+
 		playerMap->DrawMap(mousePos.x, mousePos.y);
 		enemyMap->DrawMap(mousePos.x, mousePos.y);
+
 		break;
 	case GameState::End:
 		if (win) {

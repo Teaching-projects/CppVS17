@@ -5,6 +5,7 @@
 #include "SDL_ttf.h"
 #include <iostream>
 #include <stdlib.h>
+#include <string>
 
 struct Vector2D {
 	int x;
@@ -18,12 +19,6 @@ struct Ship {
 	int length;
 	bool placed;
 };
-
-struct Data {
-	int shots;
-	int hits;
-};
-
 
 enum GameState {
 	Begin, Prep, Play, End
