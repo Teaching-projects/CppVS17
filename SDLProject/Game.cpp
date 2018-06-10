@@ -17,11 +17,25 @@ int shipPrepCount = 0;
 int shipStartEndCounter = 0;
 int shipPlacement[4];
 int prepErrorCode = 0;
+int playerCounter = 0;
 
 Data data{ 0,0 };
 Vector2D inputVectorStart{ -1, -1 };
 Vector2D inputVectorEnd{ -1, -1 };
 
+
+int placement[10][10] = {
+{ 0,0,0,0,0,2,0,0,0,0 },
+{ 0,0,0,0,0,2,0,0,0,0 },
+{ 0,0,0,0,0,2,0,0,0,0 },
+{ 0,2,2,2,2,2,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0,0 },
+{ 2,2,2,2,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,2,2,2,0,0,2,0 },
+{ 0,0,0,0,0,0,0,0,2,0 },
+{ 0,0,0,0,0,0,0,0,0,0 },
+};
 
 Game::Game() {
 
@@ -54,6 +68,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		gameState = GameState::Begin;
 		playerMap = new Map(0, 0);
 		enemyMap = new Map(448, 0);
+		enemyMap->Load(placement);
 		ships[0] = Ship{ "Anyahajó", inputVectorStart, inputVectorStart, 5 , false };
 		ships[1] = Ship{ "Csatahajó", inputVectorStart, inputVectorStart, 4 , false };
 		ships[2] = Ship{ "Cirkáló", inputVectorStart, inputVectorStart, 3 , false };
@@ -89,8 +104,10 @@ void Game::handleEvents() {
 					// convert to coord
 					playerMap->ScreenToMapCoord(inputVectorStart, inputVectorStart);
 
-					std::cout <<"start: "<< inputVectorStart.x << "  " << inputVectorStart.y << std::endl;
-					shipStartEndCounter++;
+					if (playerMap->ValidCoord(inputVectorStart)) {
+						std::cout << "start: " << inputVectorStart.x << "  " << inputVectorStart.y << std::endl;
+						shipStartEndCounter++;
+					}
 				}
 				//ha start már nem {-1, -1}, ha end {-1, -1}
 				else if (inputVectorEnd.x == -1 && inputVectorEnd.y == -1) {
@@ -127,9 +144,31 @@ void Game::handleEvents() {
 			}
 			break;
 		case GameState::Play:
-			if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
-				gameState = GameState::End;
+			if (playerCounter % 2 == 0) {
+				if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+					
+					inputVectorStart.x = mousePos.x;
+					inputVectorStart.y = mousePos.y;
+					std::cout << inputVectorStart.x << "  " << inputVectorStart.y << std::endl;
+					// convert to coord
+					enemyMap->ScreenToMapCoord(inputVectorStart, inputVectorStart);
+					std::cout << inputVectorStart.x << "  " << inputVectorStart.y << std::endl;
+					if (!enemyMap->HasBeenChecked(inputVectorStart)) {
+						
+						enemyMap->UpdateTile(inputVectorStart);
+						
+						playerCounter++;
+					}
+
+					
+				}
 			}
+			else {
+				playerCounter++;
+			}
+
+			//std::cout << playerCounter << std::endl;
+			
 			break;
 		case GameState::End:
 			if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
@@ -146,10 +185,6 @@ void Game::handleEvents() {
 	{
 		isRunning = false;
 	}
-}
-
-void Game::update() {
-
 }
 
 void Game::render() {
@@ -194,7 +229,6 @@ void Game::render() {
 		
 		break;
 	case GameState::Play:
-		SDL_GetMouseState(&mousePos.x, &mousePos.y);
 		playerMap->DrawMap(mousePos.x, mousePos.y);
 		enemyMap->DrawMap(mousePos.x, mousePos.y);
 		break;
@@ -204,6 +238,7 @@ void Game::render() {
 		}else{
 			TextureManager::DrawText(270, 20, "Majd legközelebb...", Color);
 		}
+		TextureManager::DrawText(260, 250, "Kattints a kilépéshez!", Color);
 		break;
 	default:
 		break;

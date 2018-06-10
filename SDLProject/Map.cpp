@@ -7,6 +7,9 @@ Map::Map(int _baseOffsetX, int _baseOffsetY) : baseOffsetX(_baseOffsetX), baseOf
 	water = TextureManager::LoadTexture("assets/water_flat.png");
 	ship = TextureManager::LoadTexture("assets/ship.png");
 	select = TextureManager::LoadTexture("assets/cursor.png");
+	miss = TextureManager::LoadTexture("assets/miss.png");
+	hit = TextureManager::LoadTexture("assets/hit.png");
+
 
 	for (int x = 0; x < 10; x++) {
 		for (int y = 0; y < 10; y++) {
@@ -22,9 +25,32 @@ Map::~Map() {
 
 }
 
+void Map::Load(int placement[10][10]) {
+	for (int x = 0; x < 10; x++) {
+		for (int y = 0; y < 10; y++) {
+			map[x][y] = placement[x][y];
+		}
+	}
+}
+
+bool Map::HasBeenChecked(Vector2D pos) {
+	return !(map[pos.x][pos.y] == 0 || map[pos.x][pos.y] == 2);
+}
+
+void Map::UpdateTile(Vector2D pos) {
+	if (map[pos.x][pos.y] == 0) {
+		map[pos.x][pos.y] = 4;
+		std::cout << "melle" << std::endl;
+	}
+	else if (map[pos.x][pos.y] == 2) {
+		map[pos.x][pos.y] = 3;
+		std::cout << "talalt" << std::endl;
+	}
+}
+
 void Map::ScreenToMapCoord(Vector2D screenPos, Vector2D& mapPos) {
-	mapPos.x = screenPos.x / 32;
-	mapPos.y = screenPos.y / 32;
+	mapPos.x = (screenPos.x - baseOffsetX) / 32;
+	mapPos.y = (screenPos.y - baseOffsetY) / 32;
 	ValidCoord(mapPos);
 }
 
@@ -120,21 +146,21 @@ void Map::DrawMap(int mX, int mY) {
 			destR.x = (x * 32) + baseOffsetX;
 			destR.y = (y * 32) + baseOffsetY;
 
+			TextureManager::Draw(water, srcR, destR);
 			switch (map[x][y]) {
 			case 0:
-				TextureManager::Draw(water, srcR, destR);
 				break;
-			case 1:
-				TextureManager::Draw(water, srcR, destR);
+			case 1: // Jatekos
 				TextureManager::Draw(ship, srcR, destR);
 				break;
-			case 2: // Talalt
-				TextureManager::Draw(water, srcR, destR);
-				
+			case 2: // Gep
+				//TextureManager::Draw(select, srcR, destR);
 				break;
-			case 3: // Nem talalt
-				TextureManager::Draw(water, srcR, destR);
-				
+			case 3: // Talalt
+				TextureManager::Draw(hit, srcR, destR);
+				break;
+			case 4: // Nem talalt
+				TextureManager::Draw(miss, srcR, destR);
 				break;
 			default:
 				break;
