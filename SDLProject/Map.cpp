@@ -11,9 +11,6 @@ Map::Map(int _baseOffsetX, int _baseOffsetY) : baseOffsetX(_baseOffsetX), baseOf
 	for (int x = 0; x < 10; x++) {
 		for (int y = 0; y < 10; y++) {
 			map[x][y] = 0;
-			if (x == 1) {
-				map[x][y] = 1;
-			}
 		}
 	}
 
@@ -23,38 +20,6 @@ Map::Map(int _baseOffsetX, int _baseOffsetY) : baseOffsetX(_baseOffsetX), baseOf
 
 Map::~Map() {
 
-}
-
-
-
-bool Map::SetField(Ship ship) {
-	/*if (ValidCoord(startX, startY) && ValidCoord(endX,endY)) {
-		if (startX == endX || startY == endY) {
-			if ((abs(startX - endX) + abs(startY - endY) + 1) >= length) {
-				if (startX == endX) {
-					for (int i = startY; i <= endY; i++) {
-						map[startX][i] = 1;
-					}
-				}
-				else {
-					for (int i = startX; i <= endX; i++) {
-						map[i][startY] = 1;
-					}
-				}
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-		else {
-			return false;
-		}
-	}
-	else {
-		return false;
-	}*/
-	return false;
 }
 
 void Map::ScreenToMapCoord(Vector2D screenPos, Vector2D& mapPos) {
@@ -74,7 +39,6 @@ bool Map::ValidCoord(Vector2D& pos) {
 
 int Map::ValidLength(int length, Vector2D start, Vector2D end) {
 	int shipLength = sqrt(pow((start.x - end.x), 2) + pow((start.y - end.y), 2)) + 1;
-	std::cout << "meret: " << shipLength << std::endl;
 	if (shipLength < length) {
 		return 4;
 	}
@@ -103,11 +67,13 @@ int Map::ValidPlacement(Vector2D start, Vector2D end) {
 			iterStart = end.y;
 			iterEnd = start.y;
 		}
-
-		for (int i = 0; i <= iterEnd; i++) {
+		for (int i = iterStart; i <= iterEnd; i++) {
 			if (map[anchor][i] != 0) {
 				return 2;
 			}
+		}
+		for (int i = iterStart; i <= iterEnd; i++) {
+			map[anchor][i] = 1;
 		}
 	}
 	else {
@@ -121,10 +87,13 @@ int Map::ValidPlacement(Vector2D start, Vector2D end) {
 			iterEnd = start.x;
 		}
 
-		for (int i = 0; i <= iterEnd; i++) {
+		for (int i = iterStart; i <= iterEnd; i++) {
 			if (map[i][anchor] != 0) {
 				return 2;
 			}
+		}
+		for (int i = iterStart; i <= iterEnd; i++) {
+			map[i][anchor] = 1;
 		}
 	}
 

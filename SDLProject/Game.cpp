@@ -110,23 +110,17 @@ void Game::handleEvents() {
 					if (prepErrorCode == 0)
 						prepErrorCode = playerMap->ValidPlacement(inputVectorStart, inputVectorEnd);
 						
-					std::cout << "megvan mindketto" << std::endl;
 
 					if (prepErrorCode == 0) {
 						shipStartEndCounter++;
 						shipPrepCount++;
-						std::cout << "shipprepcount: " << shipPrepCount << std::endl;
 						inputVectorStart.x = inputVectorStart.y = inputVectorEnd.x = inputVectorEnd.y = -1;
 					}
 					else {
 						shipStartEndCounter = 0;
 						inputVectorStart.x = inputVectorStart.y = inputVectorEnd.x = inputVectorEnd.y = -1;
 					}
-					
 				}
-				
-				//ha setfield ok mehet tovább
-
 				if (shipPrepCount == 5 && prepErrorCode == 0) {
 					gameState = GameState::Play;
 				}

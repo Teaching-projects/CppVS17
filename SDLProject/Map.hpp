@@ -9,7 +9,6 @@ public:
 	~Map();
 
 	void DrawMap(int x, int y);
-	bool SetField(Ship ship);
 	bool ValidCoord(Vector2D& pos);
 	int ValidLength(int length, Vector2D start, Vector2D end);
 	int ValidOrientation(Vector2D& start, Vector2D& end);
