@@ -24,9 +24,6 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -38,16 +35,10 @@
     <ClInclude Include="TextureManager.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.hpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Map.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Data.hpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ships.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

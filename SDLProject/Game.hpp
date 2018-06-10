@@ -5,6 +5,25 @@
 #include "SDL_ttf.h"
 #include <iostream>
 
+struct Vector2D {
+	int x;
+	int y;
+};
+
+struct Ship {
+	const char* name;
+	Vector2D start;
+	Vector2D end;
+	int length;
+	bool placed;
+};
+
+struct Data {
+	int shots;
+	int hits;
+};
+
+
 enum GameState {
 	Begin, Prep, Play, End
 };

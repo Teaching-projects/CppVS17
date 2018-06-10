@@ -9,8 +9,13 @@ public:
 	~Map();
 
 	void DrawMap(int x, int y);
-	bool SetField(int startX, int startY, int endX, int endY, int length);
-	bool ValidCoord(int x, int y);
+	bool SetField(Ship ship);
+	bool ValidCoord(Vector2D& pos);
+	int ValidLength(int length, Vector2D start, Vector2D end);
+	int ValidOrientation(Vector2D& start, Vector2D& end);
+	int ValidPlacement(Vector2D start, Vector2D end);
+	void PlaceShips(Vector2D start, Vector2D end);
+	void ScreenToMapCoord(Vector2D screenPos, Vector2D& mapPos);
 private:
 	int baseOffsetX;
 	int baseOffsetY;
