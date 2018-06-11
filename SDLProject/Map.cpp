@@ -99,6 +99,7 @@ int Map::ValidPlacement(Vector2D start, Vector2D end) {
 			iterEnd = start.y;
 		}
 		for (int i = iterStart; i <= iterEnd; i++) {
+			
 			if (map[anchor][i] != 0) {
 				return 2;
 			}
@@ -119,6 +120,7 @@ int Map::ValidPlacement(Vector2D start, Vector2D end) {
 		}
 
 		for (int i = iterStart; i <= iterEnd; i++) {
+			std::cout << map[i][anchor] << std::endl;
 			if (map[i][anchor] != 0) {
 				return 2;
 			}
@@ -167,6 +169,9 @@ void Map::DrawMap(int mX, int mY) {
 			case 4: // Nem talalt
 				TextureManager::Draw(miss, srcR, destR);
 				break;
+			case 5: // Nem talalt
+				TextureManager::Draw(select, srcR, destR);
+				break;
 			default:
 				break;
 			}
@@ -179,4 +184,12 @@ void Map::DrawMap(int mX, int mY) {
 		
 		TextureManager::Draw(select, srcR, destR);
 	}
+}
+
+void Map::SetSelector(Vector2D pos) {
+	map[pos.x][pos.y] = 5;
+}
+
+void Map::ClearSelector(Vector2D pos) {
+	map[pos.x][pos.y] = 0;
 }

@@ -103,12 +103,11 @@ void Game::handleEvents() {
 					// olvassuk be az eger pozt
 					inputVectorStart.x = mousePos.x;
 					inputVectorStart.y = mousePos.y;
-					std::cout << inputVectorStart.x << "  " << inputVectorStart.y << std::endl;
 					// convert to coord
 					playerMap->ScreenToMapCoord(inputVectorStart, inputVectorStart);
 
 					if (playerMap->ValidCoord(inputVectorStart)) {
-						std::cout << "start: " << inputVectorStart.x << "  " << inputVectorStart.y << std::endl;
+						playerMap->SetSelector(inputVectorStart);
 						shipStartEndCounter++;
 					}
 				}
@@ -117,13 +116,11 @@ void Game::handleEvents() {
 					// olvassuk be az eger pozt
 					inputVectorEnd.x = mousePos.x;
 					inputVectorEnd.y = mousePos.y;
-					std::cout << inputVectorEnd.x << "  " << inputVectorEnd.y << std::endl;
 					// convert to coord
 					playerMap->ScreenToMapCoord(inputVectorEnd, inputVectorEnd);
 
-					std::cout << "end: " << inputVectorEnd.x << "  " << inputVectorEnd.y << std::endl;
 					// validak egymashoz kepest ?
-					
+					playerMap->ClearSelector(inputVectorStart);
 					prepErrorCode = playerMap->ValidOrientation(inputVectorStart, inputVectorEnd);
 					if(prepErrorCode == 0)
 						prepErrorCode = playerMap->ValidLength(ships[shipPrepCount].length, inputVectorStart, inputVectorEnd);
@@ -152,10 +149,8 @@ void Game::handleEvents() {
 					
 					inputVectorStart.x = mousePos.x;
 					inputVectorStart.y = mousePos.y;
-					std::cout << inputVectorStart.x << "  " << inputVectorStart.y << std::endl;
 					// convert to coord
 					enemyMap->ScreenToMapCoord(inputVectorStart, inputVectorStart);
-					std::cout << inputVectorStart.x << "  " << inputVectorStart.y << std::endl;
 					if (!enemyMap->HasBeenChecked(inputVectorStart)) {
 						enemyShipCount += enemyMap->UpdateTile(inputVectorStart);	
 						playerCounter++;
@@ -164,7 +159,6 @@ void Game::handleEvents() {
 			}
 			else {
 				Vector2D guess;
-				std::cout << "gep jon" << std::endl;
 				do {
 					guess.x = rand() % 10;
 					guess.y = rand() % 10;
@@ -212,31 +206,32 @@ void Game::render() {
 		TextureManager::DrawText(420, 20, "Helyezd el hajóidat!", Color);
 		if (!ships[shipPrepCount].placed && shipPrepCount <= 4) {
 			TextureManager::DrawText(480, 70, ships[shipPrepCount].name, Color);
+			s = std::to_string(ships[shipPrepCount].length) + std::string(" mezõ");
+			pchar = s.c_str();
+			TextureManager::DrawText(495, 100, pchar, Color);
 			if (shipStartEndCounter % 2 == 0) {
-				TextureManager::DrawText(400, 110, "Add meg a kezdõpozíciót!", Color);
+				TextureManager::DrawText(400, 130, "Add meg a kezdõpozíciót!", Color);
 			}
 			else {
-				TextureManager::DrawText(400, 110, "Add meg a végpozíciót!", Color);
+				TextureManager::DrawText(400, 130, "Add meg a végpozíciót!", Color);
 			}
 
 			if (prepErrorCode == 1) {
-				TextureManager::DrawText(400, 150, "Az elhelyezés hibás!", Color);
+				TextureManager::DrawText(400, 170, "Az elhelyezés hibás!", Color);
 			}
 			else if (prepErrorCode == 2) {
-				TextureManager::DrawText(400, 150, "A terulet nem szabad", Color);
+				TextureManager::DrawText(400, 170, "A terület nem szabad", Color);
 			}
 			else if (prepErrorCode == 4) {
-				TextureManager::DrawText(400, 150, "A meret kicsi!", Color);
+				TextureManager::DrawText(400, 170, "A méret kicsi!", Color);
 			}
 			else if (prepErrorCode == 5) {
-				TextureManager::DrawText(400, 150, "A meret nagy!", Color);
+				TextureManager::DrawText(400, 170, "A méret nagy!", Color);
 			}
 		}
 		if (shipPrepCount > 4) {
 			TextureManager::DrawText(400, 70, "Kattints a folytatáshoz!", Color);
 		}
-		
-		
 		
 		playerMap->DrawMap(mousePos.x, mousePos.y);
 		
@@ -262,6 +257,16 @@ void Game::render() {
 		}else{
 			TextureManager::DrawText(270, 20, "Majd legközelebb...", Color);
 		}
+
+		s = std::string("17/") + std::to_string(playerShipCount);
+		pchar = s.c_str();
+		TextureManager::DrawText(150, 100, "Játékos", Color);
+		TextureManager::DrawText(160, 130, pchar, Color);
+		s = std::string("17/") + std::to_string(enemyShipCount);
+		pchar = s.c_str();
+		TextureManager::DrawText(550, 100, "Gép", Color);
+		TextureManager::DrawText(540, 130, pchar, Color);
+
 		TextureManager::DrawText(260, 250, "Kattints a kilépéshez!", Color);
 		break;
 	default:
