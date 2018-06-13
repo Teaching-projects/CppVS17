@@ -1,2 +1,3 @@
 ﻿  Game.cpp
+c:\users\ádám\documents\torpedo\sdlproject\game.cpp(96): warning C4101: 'pchar': unreferenced local variable
   SDLProject.vcxproj -> C:\Users\Ádám\Documents\Torpedo\x64\Debug\SDLProject.exe

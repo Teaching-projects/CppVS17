@@ -12,14 +12,6 @@ struct Vector2D {
 	int y;
 };
 
-struct Ship {
-	const char* name;
-	Vector2D start;
-	Vector2D end;
-	int length;
-	bool placed;
-};
-
 enum GameState {
 	Begin, Prep, Play, End
 };
@@ -31,18 +23,22 @@ public:
 	~Game();
 
 	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
-	void handleEvents();
+	void handleGameEvents();
 	void render();
 	void clean();
 	bool running();
 
+	GameState gameState;
+	
 	static SDL_Renderer* renderer;
 	static TTF_Font* font;
 
-private:
-	GameState gameState;
-	int cnt;
+	bool win;
+	int playerShipCount = 17,
+		enemyShipCount = 17;
+
 	bool isRunning;
+private:
 	SDL_Window* window;
 };
 

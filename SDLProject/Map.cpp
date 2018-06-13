@@ -25,7 +25,7 @@ Map::~Map() {
 
 }
 
-void Map::Load(int placement[10][10]) {
+void Map::Load() {
 	for (int x = 0; x < 10; x++) {
 		for (int y = 0; y < 10; y++) {
 			map[x][y] = placement[x][y];
@@ -120,7 +120,6 @@ int Map::ValidPlacement(Vector2D start, Vector2D end) {
 		}
 
 		for (int i = iterStart; i <= iterEnd; i++) {
-			std::cout << map[i][anchor] << std::endl;
 			if (map[i][anchor] != 0) {
 				return 2;
 			}

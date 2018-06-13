@@ -4,12 +4,25 @@
 
 class Map {
 
+	int placement[10][10] = {
+		{ 0,0,0,0,0,2,0,0,0,0 },
+	{ 0,0,0,0,0,2,0,0,0,0 },
+	{ 0,0,0,0,0,2,0,0,0,0 },
+	{ 0,2,2,2,2,2,0,0,0,0 },
+	{ 0,0,0,0,0,0,0,0,0,0 },
+	{ 2,2,2,2,0,0,0,0,0,0 },
+	{ 0,0,0,0,0,0,0,0,0,0 },
+	{ 0,0,0,2,2,2,0,0,2,0 },
+	{ 0,0,0,0,0,0,0,0,2,0 },
+	{ 0,0,0,0,0,0,0,0,0,0 },
+	};
+
 public:
 	Map(int _baseoffsetX, int _baseoffsetY);
 	~Map();
 
 	void DrawMap(int x, int y);
-	void Load(int[10][10]);
+	void Load();
 	bool ValidCoord(Vector2D& pos);
 	int ValidLength(int length, Vector2D start, Vector2D end);
 	int ValidOrientation(Vector2D& start, Vector2D& end);
